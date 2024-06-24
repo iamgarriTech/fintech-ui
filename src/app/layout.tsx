@@ -5,7 +5,8 @@ import "@/css/satoshi.css";
 import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
-
+import { AuthProvider } from '../context/AuthContext';
+import api from '@/utils/api';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,9 +24,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning={true}>
+      <AuthProvider>
+
         <div className="bg-white dark:bg-boxdark-2 dark:text-bodydark">
           {loading ? <Loader /> : children}
         </div>
+        </AuthProvider>
+
       </body>
     </html>
   );
