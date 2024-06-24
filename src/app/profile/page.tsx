@@ -1,20 +1,20 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import PageTitle from "@/components/PageTitles/PageTitle";
 import Image from "next/image";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
+  title: "Next.js Profile | VANT X ASOTECH - Next.js Dashboard Template",
   description:
-    "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "This is Next.js Profile page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
 const Profile = () => {
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-242.5">
-        <Breadcrumb pageName="Profile" />
+        <PageTitle pageName="Profile" />
 
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="relative z-20 h-35 md:h-65">

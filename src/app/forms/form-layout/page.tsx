@@ -1,4 +1,4 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import PageTitle from "@/components/PageTitles/PageTitle";
 
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
@@ -6,15 +6,15 @@ import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Next.js Form Layout | TailAdmin - Next.js Dashboard Template",
+  title: "Next.js Form Layout | VANT X ASOTECH - Next.js Dashboard Template",
   description:
-    "This is Next.js Form Layout page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "This is Next.js Form Layout page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
 const FormLayout = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="FormLayout" />
+      <PageTitle pageName="FormLayout" />
 
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div className="flex flex-col gap-9">

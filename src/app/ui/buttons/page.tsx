@@ -1,18 +1,18 @@
 import Link from "next/link";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import PageTitle from "@/components/PageTitles/PageTitle";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Buttons | TailAdmin - Next.js Dashboard Template",
+  title: "Next.js Buttons | VANT X ASOTECH - Next.js Dashboard Template",
   description:
-    "This is Next.js Buttons page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "This is Next.js Buttons page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
 const Buttons = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Buttons" />
+      <PageTitle pageName="Buttons" />
 
       {/* <!-- Normal Button Items --> */}
       <div className="mb-10 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

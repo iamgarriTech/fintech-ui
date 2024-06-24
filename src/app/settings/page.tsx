@@ -1,19 +1,19 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import PageTitle from "@/components/PageTitles/PageTitle";
 import Image from "next/image";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Settings | TailAdmin - Next.js Dashboard Template",
+  title: "Next.js Settings | VANT X ASOTECH - Next.js Dashboard Template",
   description:
-    "This is Next.js Settings page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
+    "This is Next.js Settings page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
 const Settings = () => {
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-270">
-        <Breadcrumb pageName="Settings" />
+        <PageTitle pageName="Settings" />
 
         <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
