@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "This is Next.js Profile page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
 };
 
-const AgentProfile = () => {
+const CustomersProfile = () => {
       const tableData: TableItem[] = [
     {
       name: "John Doe",
@@ -127,4 +127,4 @@ const AgentProfile = () => {
   );
 };
 
-export default AgentProfile;
+export default CustomersProfile;

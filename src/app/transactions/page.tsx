@@ -1,40 +1,20 @@
+import PageTitle from "@/components/PageTitles/PageTitle";
+import TableOne from "@/components/Tables/TableOne";
 import TableThree from "@/components/Tables/TableThree";
+import TableTwo from "@/components/Tables/TableTwo";
 import { TableItem } from "@/types/table";
+
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
-  title: "Next.js Tables | VANT X ASOTECH - Next.js",
+  title: "VANT X ASOTECH",
   description:
-    "This is Next.js Tables page for VANT X ASOTECH - Next.js Tailwind CSS Admin Dashboard Template",
+    "",
 };
 
-const AgentsPage = () => {
+const Transactions = () => {
   const tableData: TableItem[] = [
-    {
-      name: "John Doe",
-      price: 1200.00,
-      date: "June 24, 2024",
-      status: "Active",
-    },
-    {
-      name: "John Doe",
-      price: 1200.00,
-      date: "June 24, 2024",
-      status: "Active",
-    },
-    {
-      name: "John Doe",
-      price: 1200.00,
-      date: "June 24, 2024",
-      status: "Active",
-    },
-    {
-      name: "John Doe",
-      price: 1200.00,
-      date: "June 24, 2024",
-      status: "Active",
-    },
     {
       name: "John Doe",
       price: 1200.00,
@@ -56,11 +36,14 @@ const AgentsPage = () => {
   ];
   return (
     <DefaultLayout>
+      <PageTitle pageName="Transactions" />
+
       <div className="flex flex-col gap-10">
+
         <TableThree data={tableData} />
-      </div>
+        </div>
     </DefaultLayout>
   );
 };
 
-export default AgentsPage;
+export default Transactions;

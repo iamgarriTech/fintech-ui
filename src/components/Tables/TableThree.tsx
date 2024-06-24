@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import { TableItem } from "@/types/table";
 
 interface TableThreeProps {
@@ -6,8 +7,25 @@ interface TableThreeProps {
 }
 
 const TableThree: React.FC<TableThreeProps> = ({ data }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredData = data.filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.date.includes(searchTerm)
+  );
+
   return (
-    <div className="rounded-sm text-left  bg-white px-5 pb-2.5 pt-6  dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+      <div className="pb-4">
+        <input
+          type="text"
+          className="w-full rounded border px-4 py-2"
+          placeholder="Search by name, status or date..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="max-w-full overflow-x-auto">
         <table className="w-full table-auto">
           <thead>
@@ -27,34 +45,35 @@ const TableThree: React.FC<TableThreeProps> = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, key) => (
-              <tr key={key}>
-                <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
-                  <h5 className="font-medium text-black dark:text-white">
-                    {item.name}
-                  </h5>
-                  <p className="text-sm">Revenue: ₦{item.price}</p>
-                </td>
-                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {item.date}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                  <p
-                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
-                      item.status === "Active"
-                        ? "bg-success text-success"
-                        : item.status === "Inactive"
-                        ? "bg-danger text-danger"
-                        : "bg-warning text-warning"
-                    }`}
-                  >
-                    {item.status}
-                  </p>
-                </td>
-                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                <div className="flex items-center space-x-3.5">
+            {filteredData.length > 0 ? (
+              filteredData.map((item, key) => (
+                <tr key={key}>
+                  <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                    <h5 className="font-medium text-black dark:text-white">
+                      {item.name}
+                    </h5>
+                    <p className="text-sm">Revenue: ₦{item.price}</p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {item.date}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p
+                      className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
+                        item.status === "Active"
+                          ? "bg-success text-success"
+                          : item.status === "Inactive"
+                          ? "bg-danger text-danger"
+                          : "bg-warning text-warning"
+                      }`}
+                    >
+                      {item.status}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                  <div className="flex items-center space-x-3.5">
                     <button title="View Agent" className="hover:text-primary">
                       <svg
                         className="fill-current"
@@ -121,10 +140,16 @@ const TableThree: React.FC<TableThreeProps> = ({ data }) => {
                       </svg>
                     </button>
                   </div>
-
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="text-center py-5">
+                  No data found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
