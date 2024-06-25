@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
 import { AuthProvider } from '../context/AuthContext';
 import api from '@/utils/api';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +31,8 @@ export default function RootLayout({
         <div className="bg-white dark:bg-boxdark-2 dark:text-bodydark">
           {loading ? <Loader /> : children}
         </div>
+        <ToastContainer />
+
         </AuthProvider>
 
       </body>

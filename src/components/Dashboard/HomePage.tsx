@@ -1,11 +1,13 @@
 "use client";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ChartOne from "../Charts/ChartOne";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
 import TableOne from "../Tables/TableOne";
 import CardDataStats from "../CardDataStats";
+import api from "@/utils/api"; 
+import Loader from "@/components/common/Loader";
 
 const MapOne = dynamic(() => import("@/components/Maps/MapOne"), {
   ssr: false,
@@ -16,10 +18,45 @@ const ChartThree = dynamic(() => import("@/components/Charts/ChartThree"), {
 });
 
 const HomePage: React.FC = () => {
+  const [stats, setStats] = useState({
+    total_transaction: '',
+    transaction_growth: '',
+    total_commission: '',
+    commission_growth: '',
+    total_agents: 0,
+    agents_growth: '',
+    total_users: 0,
+    users_growth: ''
+  });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchStatistics = async () => {
+      try {
+        const response = await api.get('/admin/dashboard/statistics');
+        setStats(response.data);
+        setLoading(false);
+      } catch (error: any) {
+        setError(error.response?.data?.message || 'Failed to fetch statistics');
+        setLoading(false);
+      }
+    };
+
+    fetchStatistics();
+  }, []);
+
+  if (loading) {
+    return <Loader/>;
+  }
+
+  if (error) {
+    return <div className="text-red-500 text-center">{error}</div>;
+  }
   return (
     <>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total Transaction" total="₦3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Total Transaction"  total={stats.total_transaction} rate={stats.transaction_growth} levelDown>
 
           <svg
             className="fill-primary dark:fill-white"
@@ -70,7 +107,7 @@ const HomePage: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Comission" total="₦45,2K" rate="4.35%" levelUp>
+        <CardDataStats title="Total Comission" total={stats.total_commission} rate={stats.commission_growth} levelUp>
         <svg
             className="fill-primary dark:fill-white"
             width="20"
@@ -120,7 +157,7 @@ const HomePage: React.FC = () => {
             </g>
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Agents" total="2450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Agents" total={stats.total_agents} rate={stats.agents_growth} levelUp>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -143,7 +180,7 @@ const HomePage: React.FC = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3456" rate="0.95%" levelDown>
+        <CardDataStats title="Total Users" total={stats.total_users} rate={stats.users_growth} levelDown>
           <svg
             className="fill-primary dark:fill-white"
             width="22"
@@ -171,12 +208,9 @@ const HomePage: React.FC = () => {
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <ChartOne />
         <ChartTwo />
-        {/* <ChartThree /> */}
-        {/* <MapOne /> */}
         <div className="col-span-12 ">
           <TableOne />
         </div>
-        {/* <ChatCard /> */}
       </div>
     </>
   );
