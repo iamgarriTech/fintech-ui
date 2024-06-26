@@ -1,38 +1,34 @@
-// components/Tables/TableThree.tsx
-'use client';
-import React from 'react';
-import { TableItem } from "@/types/table";
-import api from '@/utils/api';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation'; 
+import React from "react";
+import { User } from "@/types/table";
 
-interface TableThreeProps {
-  data: TableItem[];
-  onDelete: (id: number) => void;
+interface UsersTableProps {
+  data: User[];
+  onDelete: (id: number ) => void;
 }
 
-const TableThree: React.FC<TableThreeProps> = ({ data, onDelete }) => {
-  const router = useRouter(); // Initialize useRouter
-  
-  const handleViewAgent = (id: number) => {
-    router.push(`/agents/${id}`);
-  };
+const UsersTable: React.FC<UsersTableProps> = ({ data, onDelete }) => {
   return (
     <div className="rounded-sm  bg-white px-5 pb-2.5 pt-6  dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
-        <table className="w-full table-auto">
+        <table className=" table-auto">
           <thead>
             <tr className="bg-gray-2 text-left dark:bg-meta-4">
               <th className="min-w-[220px] px-4 py-2 font-medium text-black dark:text-white xl:pl-11">
-                First Name
-              </th>
-              <th className="min-w-[220px] px-4 py-2 font-medium text-black dark:text-white xl:pl-11">
-                Last Name
+                Name
               </th>
               <th className="min-w-[150px] px-4 py-2 font-medium text-black dark:text-white">
-                Date
+                Username
+              </th>
+              <th className="min-w-[150px] px-4 py-2 font-medium text-black dark:text-white">
+                Email
               </th>
               <th className="min-w-[120px] px-4 py-2 font-medium text-black dark:text-white">
+                Phone
+              </th>
+              <th className="min-w-[150px] px-4 py-2 font-medium text-black dark:text-white">
+                Date of Birth
+              </th>
+              <th className="px-4 py-2 font-medium text-black dark:text-white">
                 Status
               </th>
               <th className="px-4 py-2 font-medium text-black dark:text-white">
@@ -43,39 +39,44 @@ const TableThree: React.FC<TableThreeProps> = ({ data, onDelete }) => {
           <tbody>
             {data.length > 0 ? (
               data.map((item, key) => (
-                <tr key={key} onClick={() => handleViewAgent(item.id)} className="cursor-pointer">
-                  <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
+                <tr className="text-left" key={key}>
+                  <td className="border-b border-[#eee] px-4 py-5  dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {item.first_name}
-                    </h5>
-                  </td>
-                  <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
-                    <h5 className="font-medium text-black dark:text-white">
-                      {item.last_name}
+                      {item.first_name} {item.last_name}
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p className="text-black dark:text-white">
-                          {new Date(item.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-
+                      {item.username}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {item.email}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {item.phone}
+                    </p>
+                  </td>
+                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                    <p className="text-black dark:text-white">
+                      {item.date_of_birth}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p
                       className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
-                        item.status === "active"
-                          ? "bg-success text-success"
-                          : item.status === "inactive"
-                          ? "bg-danger text-danger"
-                          : "bg-warning text-warning"
+                        item.is_active ? "bg-success text-success" : "bg-danger text-danger"
                       }`}
                     >
-                      {item.status}
+                      {item.is_active ? "Active" : "Inactive"}
                     </p>
                   </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
-                      <button title="View Agent" onClick={() => handleViewAgent(item.id)} className="hover:text-primary">
+                      <button title="Edit User" className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -94,10 +95,7 @@ const TableThree: React.FC<TableThreeProps> = ({ data, onDelete }) => {
                           />
                         </svg>
                       </button>
-                      <button title="Delete Agent" onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the row click event
-                        onDelete(item.id);
-                      }} className="hover:text-primary">
+                      <button title="Delete User" onClick={() => onDelete(item.id)} className="hover:text-primary">
                         <svg
                           className="fill-current"
                           width="18"
@@ -130,7 +128,7 @@ const TableThree: React.FC<TableThreeProps> = ({ data, onDelete }) => {
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="text-center py-5">
+                <td colSpan={7} className="text-center py-5">
                   No data found
                 </td>
               </tr>
@@ -142,4 +140,4 @@ const TableThree: React.FC<TableThreeProps> = ({ data, onDelete }) => {
   );
 };
 
-export default TableThree;
+export default UsersTable;
